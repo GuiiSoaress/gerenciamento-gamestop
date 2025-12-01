@@ -15,6 +15,12 @@ public class Cliente {
         this.idade = idade;
     }
 
+    
+    public Cliente(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
     // Getters e Setters
     public Long getId() {
         return id;
