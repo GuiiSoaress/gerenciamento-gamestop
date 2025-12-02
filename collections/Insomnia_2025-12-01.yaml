@@ -1,0 +1,606 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: My Collection
+meta:
+  id: wrk_c129525a5fc54260a46268e292055756
+  created: 1746116688314
+  modified: 1764634660249
+  description: ""
+collection:
+  - name: Requests Jogo
+    meta:
+      id: fld_e1825f40d0cb44ffbc99747ff5cdb41c
+      created: 1764634699083
+      modified: 1764634699083
+      sortKey: -1764634699083
+      description: ""
+    children:
+      - url: http://localhost:4567/jogos
+        name: Criar Jogos
+        meta:
+          id: req_a582bbb12bc64fecae5dd7fc09a3ee60
+          created: 1764634704926
+          modified: 1764635611290
+          isPrivate: false
+          description: ""
+          sortKey: -1764634969563
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+                "nome": "Dota 2",
+                "preco": 699.99,
+                "idadeMinima": 18,
+                "genero": {
+                    "id": 3,
+                    "nome": "Aventura"
+                }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/jogos
+        name: Lista Todos os Jogos
+        meta:
+          id: req_99ee7def501541bf92fa4eb757c39bd9
+          created: 1764634981657
+          modified: 1764634999568
+          isPrivate: false
+          description: ""
+          sortKey: -1764634981657
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/jogos/5
+        name: Lista Jogo Por Id
+        meta:
+          id: req_eb24cae275d74ec885be2cc4319ee568
+          created: 1764635182545
+          modified: 1764635619361
+          isPrivate: false
+          description: ""
+          sortKey: -1764635182545
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/jogos/5
+        name: Atualiza Jogo
+        meta:
+          id: req_5e0ec66e99ce4d118fc4322ffc12f01e
+          created: 1764635627828
+          modified: 1764635665694
+          isPrivate: false
+          description: ""
+          sortKey: -1764635627828
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+                "nome": "Dota 5",
+                "preco": 699.99,
+                "idadeMinima": 18,
+                "genero": {
+                    "id": 3,
+                    "nome": "Aventura"
+                }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/jogos/5
+        name: Deleta Jogo
+        meta:
+          id: req_71a37b60d4e146a7a97221aea5dd03dd
+          created: 1764635771811
+          modified: 1764635887106
+          isPrivate: false
+          description: ""
+          sortKey: -1764635771811
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Requests Genero
+    meta:
+      id: fld_a5712313fbfa4b29862b8554ea59637a
+      created: 1764635179582
+      modified: 1764635830173
+      sortKey: -1764635179582
+      description: ""
+    children:
+      - url: http://localhost:4567/generos
+        name: Cria Generos
+        meta:
+          id: req_28e339120c3843f8a4fe76047ca0a963
+          created: 1764635216098
+          modified: 1764635379704
+          isPrivate: false
+          description: ""
+          sortKey: -1764635216098
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "Aventura2"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/generos
+        name: Lista Todos os Generos
+        meta:
+          id: req_c54816a833a84f04924279aba4b31258
+          created: 1764635382300
+          modified: 1764635401641
+          isPrivate: false
+          description: ""
+          sortKey: -1764635382300
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/generos/4
+        name: Lista Genero Por Id
+        meta:
+          id: req_70087055e5a44e3b88d6a9be1d8792fe
+          created: 1764635407147
+          modified: 1764635460877
+          isPrivate: false
+          description: ""
+          sortKey: -1764635407147
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/generos/4
+        name: Atualiza Genero
+        meta:
+          id: req_a7cfa1262f3442d5be12c0374740d55d
+          created: 1764635425179
+          modified: 1764635455331
+          isPrivate: false
+          description: ""
+          sortKey: -1764635425179
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "Aventura3"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/generos/4
+        name: Deleta Genero
+        meta:
+          id: req_07df4cd9da2d4c3c9cfe2961aad91447
+          created: 1764635466163
+          modified: 1764635479576
+          isPrivate: false
+          description: ""
+          sortKey: -1764635466163
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Requests Cliente
+    meta:
+      id: fld_b6823424e0dc55caa973858fa1ceb52b
+      created: 1764636000000
+      modified: 1764636000000
+      sortKey: -1764636000000
+      description: ""
+    children:
+      - url: http://localhost:4567/clientes
+        name: Cria Cliente
+        meta:
+          id: req_39f450231d3d54dbb084969fb2def63c
+          created: 1764636100000
+          modified: 1764636100000
+          isPrivate: false
+          description: ""
+          sortKey: -1764636100000
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "João Silva",
+            	"idade": 25
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/clientes
+        name: Lista Todos os Clientes
+        meta:
+          id: req_40f560342e4e65ecc195a7af03eff74d
+          created: 1764636200000
+          modified: 1764636200000
+          isPrivate: false
+          description: ""
+          sortKey: -1764636200000
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/clientes/1
+        name: Lista Cliente Por Id
+        meta:
+          id: req_51g671453f5f76fdd2a6b8bg14fgg85e
+          created: 1764636300000
+          modified: 1764636300000
+          isPrivate: false
+          description: ""
+          sortKey: -1764636300000
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/clientes/1
+        name: Atualiza Cliente
+        meta:
+          id: req_62h782564g6g87gee3b7c9ch25ghh96f
+          created: 1764636400000
+          modified: 1764636400000
+          isPrivate: false
+          description: ""
+          sortKey: -1764636400000
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "João Silva Santos",
+            	"idade": 26
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/clientes/1
+        name: Deleta Cliente
+        meta:
+          id: req_73i893675h7h98hff4c8d0di36iii07g
+          created: 1764636500000
+          modified: 1764636500000
+          isPrivate: false
+          description: ""
+          sortKey: -1764636500000
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Requests Locacao
+    meta:
+      id: fld_c7934535f1ed66dbb084969fb2cfc63c
+      created: 1764637000000
+      modified: 1764637000000
+      sortKey: -1764637000000
+      description: ""
+    children:
+      - url: http://localhost:4567/locacoes
+        name: Cria Locacao
+        meta:
+          id: req_84j904786i8i09igg5d9e1ej47jjj18h
+          created: 1764637100000
+          modified: 1764637100000
+          isPrivate: false
+          description: ""
+          sortKey: -1764637100000
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+                "dataLocacao": "2024-12-01",
+                "dataVencimento": "2024-12-08",
+                "jogo": {
+                    "id": 1
+                },
+                "cliente": {
+                    "id": 1
+                }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/locacoes
+        name: Lista Todas as Locacoes
+        meta:
+          id: req_95k015897j9j10jhh6e0f2fk58kkk29i
+          created: 1764637200000
+          modified: 1764637200000
+          isPrivate: false
+          description: ""
+          sortKey: -1764637200000
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/locacoes/1
+        name: Lista Locacao Por Id
+        meta:
+          id: req_06l126908k0k21kii7f1g3gl69lll30j
+          created: 1764637300000
+          modified: 1764637300000
+          isPrivate: false
+          description: ""
+          sortKey: -1764637300000
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/locacoes/1
+        name: Atualiza Locacao
+        meta:
+          id: req_17m237019l1l32ljj8g2h4hm70mmm41k
+          created: 1764637400000
+          modified: 1764637400000
+          isPrivate: false
+          description: ""
+          sortKey: -1764637400000
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+                "dataLocacao": "2024-12-01",
+                "dataVencimento": "2024-12-15",
+                "jogo": {
+                    "id": 1
+                },
+                "cliente": {
+                    "id": 1
+                }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:4567/locacoes/1
+        name: Deleta Locacao
+        meta:
+          id: req_28n348120m2m43mkk9h3i5in81nnn52l
+          created: 1764637500000
+          modified: 1764637500000
+          isPrivate: false
+          description: ""
+          sortKey: -1764637500000
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_41daaaec5e6524826f8989234b01228d3c66598e
+    created: 1764634660271
+    modified: 1764634660271
+environments:
+  name: Base Environment
+  meta:
+    id: env_41daaaec5e6524826f8989234b01228d3c66598e
+    created: 1746116688319
+    modified: 1764634660247
+    isPrivate: false
