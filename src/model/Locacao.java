@@ -1,11 +1,12 @@
 package model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Locacao {
     private Long id;
-    private LocalDate dataLocacao;
-    private LocalDate dataVencimento;
+    private Date dataLocacao;
+    private Date dataVencimento;
     private Jogo jogo;
     private Cliente cliente;
 
@@ -13,7 +14,7 @@ public class Locacao {
     public Locacao() {}
 
     // Construtor parametrizado
-    public Locacao(Long id, LocalDate dataLocacao, LocalDate dataVencimento, Jogo jogo, Cliente cliente) {
+    public Locacao(Long id, Date dataLocacao, Date dataVencimento, Jogo jogo, Cliente cliente) {
         this.id = id;
         this.dataLocacao = dataLocacao;
         this.dataVencimento = dataVencimento;
@@ -30,19 +31,19 @@ public class Locacao {
         this.id = id;
     }
 
-    public LocalDate getDataLocacao() {
+    public Date getDataLocacao() {
         return dataLocacao;
     }
 
-    public void setDataLocacao(LocalDate dataLocacao) {
+    public void setDataLocacao(Date dataLocacao) {
         this.dataLocacao = dataLocacao;
     }
 
-    public LocalDate getDataVencimento() {
+    public Date getDataVencimento() {
         return dataVencimento;
     }
 
-    public void setDataVencimento(LocalDate dataVencimento) {
+    public void setDataVencimento(Date dataVencimento) {
         this.dataVencimento = dataVencimento;
     }
 

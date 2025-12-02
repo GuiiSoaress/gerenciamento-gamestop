@@ -19,6 +19,11 @@ public class Jogo {
         this.genero = genero;
     }
 
+    public Jogo(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
     // Getters e Setters
     public Long getId() {
         return id;
