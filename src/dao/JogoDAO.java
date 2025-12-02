@@ -115,6 +115,7 @@ public class JogoDAO {
             stmt.setString(1, jogo.getNome());
             stmt.setDouble(2, jogo.getPreco());
             stmt.setInt(3, jogo.getIdadeMinima());
+            stmt.setLong(4, jogo.getGenero().getId());
 
             stmt.executeUpdate();
 
@@ -142,6 +143,8 @@ public class JogoDAO {
             stmt.setString(1, jogo.getNome());
             stmt.setDouble(2, jogo.getPreco());
             stmt.setInt(3, jogo.getIdadeMinima());
+            stmt.setLong(4, jogo.getGenero().getId());
+            
 
             stmt.setLong(5, jogo.getId());
 
