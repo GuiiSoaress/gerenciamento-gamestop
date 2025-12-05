@@ -9,6 +9,12 @@ import static spark.Spark.post;
 import static spark.Spark.put;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -42,6 +48,28 @@ public class ApiLocadora {
             .create();
 
     private static final String APPLICATION_JSON = "application/json";
+
+    // Calcula os dias restantes para devolução
+    private static Long calcularDiasRestantes(Date dataVencimento) {
+        if (dataVencimento == null) {
+            return null;
+        }
+        LocalDate hoje = LocalDate.now();
+        LocalDate vencimento = dataVencimento.toLocalDate();
+        return ChronoUnit.DAYS.between(hoje, vencimento);
+    }
+
+    // Adiciona campo de dias restantes ao JSON da locação
+    private static Map<String, Object> locacaoComDiasRestantes(Locacao locacao) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", locacao.getId());
+        map.put("dataLocacao", locacao.getDataLocacao());
+        map.put("dataVencimento", locacao.getDataVencimento());
+        map.put("jogo", locacao.getJogo());
+        map.put("cliente", locacao.getCliente());
+        map.put("diasRestantes", calcularDiasRestantes(locacao.getDataVencimento()));
+        return map;
+    }
 
     public static void main(String[] args) {
         port(4567);
@@ -110,7 +138,12 @@ public class ApiLocadora {
         get("/locacoes", new Route() {
             @Override
             public Object handle(Request request, Response response) {
-                return gson.toJson(locacaoDAO.buscarTodos());
+                List<Locacao> locacoes = locacaoDAO.buscarTodos();
+                List<Map<String, Object>> locacoesComDias = new ArrayList<>();
+                for (Locacao locacao : locacoes) {
+                    locacoesComDias.add(locacaoComDiasRestantes(locacao));
+                }
+                return gson.toJson(locacoesComDias);
             }
         });
 
@@ -123,7 +156,7 @@ public class ApiLocadora {
                     Locacao locacao = locacaoDAO.buscarPorId(id);
 
                     if (locacao != null) {
-                        return gson.toJson(locacao);
+                        return gson.toJson(locacaoComDiasRestantes(locacao));
                     } else {
                         response.status(404);
                         return "{\"mensagem\": \"Locação com ID " + id + " não encontrada\"}";
