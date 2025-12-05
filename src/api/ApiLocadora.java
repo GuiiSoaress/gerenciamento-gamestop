@@ -33,14 +33,14 @@ public class ApiLocadora {
     private static final JogoDAO jogoDAO = new JogoDAO();
     private static final ClienteDAO clienteDAO = new ClienteDAO();
     private static final GeneroDAO generoDAO = new GeneroDAO();
-    
+
     // Gson com adaptador para java.sql.Date
     private static final Gson gson = new GsonBuilder()
             .registerTypeAdapter(java.sql.Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> {
                 return java.sql.Date.valueOf(json.getAsString());
             })
             .create();
-    
+
     private static final String APPLICATION_JSON = "application/json";
 
     public static void main(String[] args) {
@@ -105,7 +105,7 @@ public class ApiLocadora {
         // ========================================
         // ROTAS DE LOCAÇÕES
         // ========================================
-        
+
         // GET /locacoes - Buscar todas
         get("/locacoes", new Route() {
             @Override
@@ -141,6 +141,23 @@ public class ApiLocadora {
             public Object handle(Request request, Response response) {
                 try {
                     Locacao novaLocacao = gson.fromJson(request.body(), Locacao.class);
+
+                    // Valida idade mínima
+                    if (novaLocacao.getJogo() != null && novaLocacao.getJogo().getId() != null &&
+                            novaLocacao.getCliente() != null && novaLocacao.getCliente().getId() != null) {
+
+                        Jogo jogo = jogoDAO.buscarPorId(novaLocacao.getJogo().getId());
+                        Cliente cliente = clienteDAO.buscarPorId(novaLocacao.getCliente().getId());
+
+                        if (jogo != null && cliente != null &&
+                                jogo.getIdadeMinima() != null && cliente.getIdade() != null &&
+                                cliente.getIdade() < jogo.getIdadeMinima()) {
+                            response.status(400);
+                            return "{\"mensagem\": \"O cliente não possui idade suficiente para locar este jogo. Idade mínima: "
+                                    + jogo.getIdadeMinima() + " anos.\"}";
+                        }
+                    }
+
                     LocacaoDAO.inserir(novaLocacao);
 
                     response.status(201);
@@ -168,6 +185,23 @@ public class ApiLocadora {
 
                     Locacao locacaoParaAtualizar = gson.fromJson(request.body(), Locacao.class);
                     locacaoParaAtualizar.setId(id);
+
+                    // Valida idade mínima
+                    if (locacaoParaAtualizar.getJogo() != null && locacaoParaAtualizar.getJogo().getId() != null &&
+                            locacaoParaAtualizar.getCliente() != null
+                            && locacaoParaAtualizar.getCliente().getId() != null) {
+
+                        Jogo jogo = jogoDAO.buscarPorId(locacaoParaAtualizar.getJogo().getId());
+                        Cliente cliente = clienteDAO.buscarPorId(locacaoParaAtualizar.getCliente().getId());
+
+                        if (jogo != null && cliente != null &&
+                                jogo.getIdadeMinima() != null && cliente.getIdade() != null &&
+                                cliente.getIdade() < jogo.getIdadeMinima()) {
+                            response.status(400);
+                            return "{\"mensagem\": \"O cliente não possui idade suficiente para locar este jogo. Idade mínima: "
+                                    + jogo.getIdadeMinima() + " anos.\"}";
+                        }
+                    }
 
                     locacaoDAO.atualizar(locacaoParaAtualizar);
 
@@ -213,7 +247,7 @@ public class ApiLocadora {
         // ========================================
         // ROTAS DE JOGOS
         // ========================================
-        
+
         // GET /jogos - Buscar todos
         get("/jogos", (request, response) -> gson.toJson(jogoDAO.buscarTodos()));
 
@@ -310,7 +344,7 @@ public class ApiLocadora {
         // ========================================
         // ROTAS DE CLIENTES
         // ========================================
-        
+
         // GET /clientes - Buscar todos
         get("/clientes", (request, response) -> gson.toJson(clienteDAO.buscarTodos()));
 
@@ -407,7 +441,7 @@ public class ApiLocadora {
         // ========================================
         // ROTAS DE GÊNEROS
         // ========================================
-        
+
         // GET /generos - Buscar todos
         get("/generos", (request, response) -> gson.toJson(generoDAO.buscarTodos()));
 
