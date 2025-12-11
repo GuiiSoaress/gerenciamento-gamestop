@@ -56,7 +56,11 @@ public class ApiLocadora {
         }
         LocalDate hoje = LocalDate.now();
         LocalDate vencimento = dataVencimento.toLocalDate();
-        return ChronoUnit.DAYS.between(hoje, vencimento);
+        Long dias = ChronoUnit.DAYS.between(hoje, vencimento);
+        if (dias < 0 ){
+            return (long) 0;
+        }
+        return dias;
     }
 
     // Adiciona campo de dias restantes ao JSON da locação

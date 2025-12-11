@@ -1,19 +1,23 @@
-## Getting Started
+# A Dor e A Solução
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## O Problema
 
-## Folder Structure
+Locadoras de jogos físicos ainda existem e atendem um nicho importante: pessoas sem internet rápida, colecionadores e quem prefere mídias físicas. Porém, muitas operam de forma **manual e desorganizada**, usando cadernos e planilhas para controlar tudo.
 
-The workspace contains two folders by default, where:
+Isso gera:
+- **Perda de controle** sobre quais jogos estão alugados e com quem
+- **Dificuldade em acompanhar prazos** de devolução
+- **Impossibilidade de validar** se um cliente pode alugar determinado jogo (idade mínima)
+- **Atendimento lento** por falta de acesso rápido às informações
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Nossa Solução
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+Desenvolvemos um **sistema back-end** que organiza toda a logística de locações de jogos.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+O sistema permite:
+- Cadastrar, visualizar, editar e deletar clientes, jogos, gêneros e locações
+- Calcular automaticamente quantos dias faltam para cada devolução
+- Validar se o cliente tem idade suficiente para alugar um jogo
+- Acessar todas as informações de forma rápida e organizada através de uma API REST
 
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
-# gerenciamento-gamestop
+**Resultado:** A locadora deixa de ser caótica e passa a ter controle total sobre suas operações.
