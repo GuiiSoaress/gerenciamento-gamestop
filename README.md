@@ -1,61 +1,100 @@
-# A Dor e A Solução
+# 🎮 Sistema de Gerenciamento de Locadora de Jogos
 
-## O Problema
+Sistema back-end REST API desenvolvido em Java para gerenciar operações de uma locadora de jogos físicos.
 
-Locadoras de jogos físicos ainda existem e atendem um nicho importante: pessoas sem internet rápida, colecionadores e quem prefere mídias físicas. Porém, muitas operam de forma **manual e desorganizada**, usando cadernos e planilhas para controlar tudo.
+## 📋 Sobre
 
-Isso gera:
-- **Perda de controle** sobre quais jogos estão alugados e com quem
-- **Dificuldade em acompanhar prazos** de devolução
-- **Impossibilidade de validar** se um cliente pode alugar determinado jogo (idade mínima)
-- **Atendimento lento** por falta de acesso rápido às informações
+Sistema que automatiza o controle de locações de jogos, resolvendo problemas de gestão manual:
 
-## Nossa Solução
+- Controle de jogos alugados e prazos de devolução
+- Validação automática de idade mínima
+- Cálculo de dias restantes para devolução
+- Proteção de integridade referencial
 
-Desenvolvemos um **sistema back-end** que organiza toda a logística de locações de jogos.
+## 🛠 Tecnologias
 
-O sistema permite:
-- Cadastrar, visualizar, editar e deletar clientes, jogos, gêneros e locações
-- Calcular automaticamente quantos dias faltam para cada devolução
-- Validar se o cliente tem idade suficiente para alugar um jogo
-- Acessar todas as informações de forma rápida e organizada através de uma API REST
+- Java
+- Spark Framework
+- MySQL
+- Gson (JSON)
 
-**Resultado:** A locadora deixa de ser caótica e passa a ter controle total sobre suas operações.
+## 📦 Pré-requisitos
 
----
+- Java JDK 8+
+- MySQL 8.0+
 
-## As APIs Desenvolvidas
+## 🚀 Instalação e Execução
 
-O sistema expõe **4 grupos de endpoints REST** para gerenciar todos os recursos:
+### 1. Configure o Banco de Dados
 
-### 1. **Gêneros** (`/generos`)
-- Criar, listar, buscar por ID, atualizar e deletar gêneros de jogos
-- Exemplos: RPG, Ação, Aventura, Estratégia
+```bash
+mysql -u root -p < bd/CreateScritpt.sql
+```
 
-### 2. **Jogos** (`/jogos`)
-- Gerenciar o catálogo completo de jogos
-- Cada jogo possui: nome, preço, idade mínima e gênero
-- Impede exclusão de jogos que estão em locações ativas
+### 2. Configure a Conexão
 
-### 3. **Clientes** (`/clientes`)
-- Cadastro completo de clientes com nome e idade
-- Validação automática de idade ao criar locações
+Edite `src/util/ConnectionFactory.java` com suas credenciais MySQL.
 
-### 4. **Locações** (`/locacoes`)
-- Controle completo das locações ativas
-- Registra data de locação e data de vencimento
-- **Calcula automaticamente** os dias restantes para devolução
-- Valida se o cliente tem idade suficiente para o jogo
+### 3. Compile e Execute
 
----
+```bash
+# Compilar
+javac -cp "lib/*" -d bin src/**/*.java
 
-## Demonstração
+# Executar
+java -cp "bin:lib/*" api.ApiLocadora
+```
 
-**API Base:** `http://localhost:4567`
+A API estará disponível em: `http://localhost:4567`
 
-**Exemplo de uso - Criar uma locação:**
+## 📚 Documentação da API
+
+### Base URL
+
+```
+http://localhost:4567
+```
+
+### Endpoints
+
+Todos os recursos seguem o padrão REST:
+
+| Recurso                    | Endpoints                                            |
+| -------------------------- | ---------------------------------------------------- |
+| **Gêneros** (`/generos`)   | `GET`, `GET /:id`, `POST`, `PUT /:id`, `DELETE /:id` |
+| **Jogos** (`/jogos`)       | `GET`, `GET /:id`, `POST`, `PUT /:id`, `DELETE /:id` |
+| **Clientes** (`/clientes`) | `GET`, `GET /:id`, `POST`, `PUT /:id`, `DELETE /:id` |
+| **Locações** (`/locacoes`) | `GET`, `GET /:id`, `POST`, `PUT /:id`, `DELETE /:id` |
+
+### Estruturas de Dados
+
+**Gênero:**
+
 ```json
-POST /locacoes
+{ "id": 1, "nome": "RPG" }
+```
+
+**Jogo:**
+
+```json
+{
+  "id": 1,
+  "nome": "The Witcher 3",
+  "preco": 79.9,
+  "idadeMinima": 18,
+  "genero": { "id": 5, "nome": "RPG" }
+}
+```
+
+**Cliente:**
+
+```json
+{ "id": 1, "nome": "João Silva", "idade": 26 }
+```
+
+**Locação (criação):**
+
+```json
 {
   "dataLocacao": "2025-12-01",
   "dataVencimento": "2026-01-20",
@@ -64,27 +103,74 @@ POST /locacoes
 }
 ```
 
-**Resposta - Listar locações:**
+**Locação (resposta):**
+
 ```json
-GET /locacoes
-[
-  {
-    "id": 1,
-    "dataLocacao": "2025-12-01",
-    "dataVencimento": "2026-01-20",
-    "diasRestantes": 40,
-    "jogo": {
-      "id": 1,
-      "nome": "The Witcher 3",
-      "idadeMinima": 18
-    },
-    "cliente": {
-      "id": 1,
-      "nome": "João Silva",
-      "idade": 26
-    }
+{
+  "id": 1,
+  "dataLocacao": "2025-12-01",
+  "dataVencimento": "2026-01-20",
+  "diasRestantes": 40,
+  "jogo": {
+    /* objeto completo */
+  },
+  "cliente": {
+    /* objeto completo */
   }
-]
+}
 ```
 
-O campo **`diasRestantes`** é calculado automaticamente usando a API java.time, facilitando o controle de prazos e identificação de atrasos.
+> **Nota:** O campo `diasRestantes` é calculado automaticamente nas respostas GET de locações.
+
+## ⚠️ Validações
+
+- **Idade mínima:** Impede locação de jogos para clientes menores de idade (status 400)
+- **Integridade referencial:** Impede exclusão de recursos em uso (status 409)
+  - Jogos em locações ativas
+  - Clientees com locações
+  - Gêneros associados a jogos
+
+## 📊 Códigos de Status
+
+| Código | Descrição               |
+| ------ | ----------------------- |
+| 200    | OK                      |
+| 201    | Created                 |
+| 204    | No Content              |
+| 400    | Bad Request (validação) |
+| 404    | Not Found               |
+| 409    | Conflict (integridade)  |
+| 500    | Internal Server Error   |
+
+## 💡 Exemplo de Uso
+
+```bash
+# Criar locação
+POST http://localhost:4567/locacoes
+Content-Type: application/json
+
+{
+  "dataLocacao": "2025-12-01",
+  "dataVencimento": "2026-01-20",
+  "jogo": { "id": 1 },
+  "cliente": { "id": 1 }
+}
+```
+
+## 📁 Estrutura do Projeto
+
+```
+src/
+├── api/ApiLocadora.java      # Rotas da API
+├── dao/                       # Acesso a dados
+├── model/                     # Modelos de dados
+└── util/ConnectionFactory.java  # Conexão BD
+```
+
+## 🔗 Coleção de Requisições
+
+Coleção do Insomnia disponível em: `collections/Insomnia_2025-12-01.yaml`
+
+---
+
+**Desenvolvido para modernizar o gerenciamento de locadoras de jogos**
